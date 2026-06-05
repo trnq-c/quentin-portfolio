@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1180" viewBox="0 0 800 1180" role="img" aria-label="Osaka, Japon — Dotonbori la nuit">
+  <defs>
+    <pattern id="s" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="14" height="14" fill="#faf9f6"/>
+      <rect width="7" height="14" fill="#ece8e1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1180" fill="url(#s)"/>
+  <rect x="14" y="14" width="772" height="1152" fill="none" stroke="#ece8e1" stroke-width="2"/>
+  <circle cx="400.0" cy="472.0" r="44.0" fill="none" stroke="#8b857c" stroke-width="2"/>
+  <circle cx="400.0" cy="472.0" r="3" fill="#9a3b2e"/>
+  <text x="400.0" y="637.2" text-anchor="middle" font-family="monospace" font-size="13" letter-spacing="3" fill="#8b857c">OSAKA, JAPON</text>
+  <text x="400.0" y="667.2" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#1c1a17">Dotonbori la nuit</text>
+  <text x="400.0" y="1154" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="2" fill="#8b857c">PHOTO À REMPLACER</text>
+</svg>

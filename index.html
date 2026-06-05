@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  PORTFOLIO PHOTO — QUENTIN TRAN
+  Street & travel photography · style éditorial magazine
+  ============================================================================
+
+  Bonjour Quentin ! Ce fichier contient TOUT votre site (HTML + CSS + JavaScript).
+  Vous n'avez besoin d'aucun logiciel : double-cliquez dessus pour l'ouvrir, ou
+  mettez-le en ligne tel quel.
+
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ OÙ MODIFIER QUOI ? (cherchez ces étiquettes avec Ctrl+F / Cmd+F)          │
+  ├──────────────────────────────────────────────────────────────────────────┤
+  │  ★ VOS PHOTOS .............. cherchez « LISTE DE VOS PHOTOS »             │
+  │  ★ PHOTO DU HERO ........... cherchez « PHOTO DU HERO »                    │
+  │  ★ TEXTE « À PROPOS » ...... cherchez « SECTION À PROPOS »                 │
+  │  ★ VOTRE PORTRAIT ......... cherchez « VOTRE PORTRAIT »                    │
+  │  ★ EMAIL & RÉSEAUX ........ cherchez « SECTION CONTACT »                   │
+  └──────────────────────────────────────────────────────────────────────────┘
+
+  Pour remplacer une image : déposez votre fichier (ex : ma-photo.jpg) dans le
+  dossier « images/ » (à côté de ce fichier), puis remplacez l'adresse
+  « images/xxx.svg » par le nom de votre fichier (ex : "images/ma-photo.jpg").
+  Les images actuelles sont des placeholders SVG (emplacements éditoriaux étiquetés
+  par destination), à remplacer par vos vraies photos.
+
+  Style éditorial : titres en serif « Cormorant Garamond », texte en sans-serif
+  « Hanken Grotesk », fond blanc cassé, accent terracotta discret.
+-->
+<html lang="fr" data-direction="A">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quentin Tran — Street & Travel Photography</title>
+
+<!-- Polices Google : 3 serif élégantes (une par direction) + 1 sans-serif lisible -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ===========================================================================
+   1. TOKENS / VARIABLES — change ici les couleurs & polices de base
+   =========================================================================== */
+:root{
+  --accent: #9a3b2e;          /* terracotta discret (votre accent choisi) */
+  --ink: #1c1a17;             /* texte principal, presque noir et chaud */
+  --muted: #8b857c;           /* texte secondaire / légendes */
+  --line: #e4e0d8;            /* filets fins */
+  --paper: #faf9f6;           /* fond de page (blanc cassé) */
+  --max: 1280px;              /* largeur max du contenu */
+  --gut: clamp(20px, 5vw, 72px); /* marges latérales généreuses */
+  /* Polices & rythme typographique */
+  --serif: "Cormorant Garamond", Georgia, serif;  /* titres */
+  --sans: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texte */
+  --h-weight: 500;
+  --h-spacing: 0;
+  --title-case: none;
+}
+
+/* ===========================================================================
+   2. BASES
+   =========================================================================== */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:var(--sans); color:var(--ink); background:var(--paper);
+  font-weight:400; line-height:1.6; -webkit-font-smoothing:antialiased;
+  font-size:17px; overflow-x:hidden;
+  transition:background .5s ease, color .5s ease;
+}
+img{ display:block; width:100%; height:auto; }
+a{ color:inherit; text-decoration:none; }
+
+h1,h2,h3,.serif{ font-family:var(--serif); font-weight:var(--h-weight);
+  letter-spacing:var(--h-spacing); line-height:1.04; }
+
+/* Petite étiquette en capitales (kicker) — rythme éditorial */
+.kicker{
+  font-family:var(--sans); font-size:12px; font-weight:600;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--muted);
+}
+.accent{ color:var(--accent); }
+
+.wrap{ max-width:var(--max); margin:0 auto; padding-left:var(--gut); padding-right:var(--gut); }
+section{ position:relative; }
+
+/* Filet fin réutilisable */
+.rule{ height:1px; background:var(--line); border:0; }
+
+/* ===========================================================================
+   3. EN-TÊTE / NAVIGATION (fixe, discrète)
+   =========================================================================== */
+header.nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px var(--gut);
+  transition:background .4s ease, padding .4s ease, box-shadow .4s ease;
+}
+header.nav.scrolled{
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(10px); padding:14px var(--gut);
+  box-shadow:0 1px 0 var(--line);
+}
+.brand{ font-family:var(--serif); font-size:22px; font-weight:var(--h-weight); letter-spacing:.01em; }
+.brand small{ font-family:var(--sans); display:block; font-size:10px; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--muted); margin-top:2px; }
+nav.links{ display:flex; gap:34px; align-items:center; }
+nav.links a{ font-size:13px; letter-spacing:.06em; color:var(--ink); position:relative; padding:4px 0; }
+nav.links a::after{ content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+  background:var(--accent); transition:width .3s ease; }
+nav.links a:hover::after{ width:100%; }
+.menu-btn{ display:none; background:none; border:0; font-size:13px; letter-spacing:.1em;
+  text-transform:uppercase; cursor:pointer; color:var(--ink); }
+
+/* ===========================================================================
+   4. HERO — pleine hauteur, image plein impact
+   =========================================================================== */
+.hero{ min-height:100svh; display:grid; align-items:end; position:relative; }
+.hero__media{ position:absolute; inset:0; overflow:hidden; }
+.hero__media img{ width:100%; height:100%; object-fit:cover;
+  transform:scale(1.04); animation:slowzoom 18s ease-out forwards; }
+@keyframes slowzoom{ to{ transform:scale(1); } }
+/* Léger voile pour la lisibilité du texte clair */
+.hero__media::after{ content:""; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.5) 0%, rgba(0,0,0,.12) 38%, rgba(0,0,0,.28) 100%); }
+.hero__inner{ position:relative; z-index:2; color:#fff;
+  padding:0 var(--gut) clamp(48px,9vh,110px); max-width:var(--max); margin:0 auto; width:100%; }
+.hero .kicker{ color:rgba(255,255,255,.82); }
+.hero h1{ font-size:clamp(54px, 11vw, 150px); color:#fff; margin:.18em 0 .28em;
+  text-transform:var(--title-case); }
+.hero__sub{ display:flex; flex-wrap:wrap; gap:18px 30px; align-items:baseline;
+  font-size:15px; letter-spacing:.04em; color:rgba(255,255,255,.9); }
+.hero__sub .dot{ width:5px; height:5px; border-radius:50%; background:var(--accent); display:inline-block; }
+.scrollcue{ position:absolute; left:50%; bottom:26px; transform:translateX(-50%); z-index:2;
+  color:rgba(255,255,255,.85); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  display:flex; flex-direction:column; align-items:center; gap:9px; }
+.scrollcue .bar{ width:1px; height:42px; background:rgba(255,255,255,.6); animation:cue 2.2s ease-in-out infinite; transform-origin:top; }
+@keyframes cue{ 0%,100%{ transform:scaleY(.4); opacity:.4; } 50%{ transform:scaleY(1); opacity:1; } }
+
+/* ===========================================================================
+   5. INTRO / MANIFESTE (bloc texte qui respire)
+   =========================================================================== */
+.intro{ padding:clamp(90px,14vh,170px) 0; }
+.intro .wrap{ display:grid; grid-template-columns:1fr; gap:34px; }
+.intro__lead{ font-family:var(--serif); font-size:clamp(26px,3.4vw,44px); line-height:1.25;
+  max-width:18ch; letter-spacing:var(--h-spacing); }
+.intro__body{ max-width:60ch; color:#4a463f; font-size:18px; }
+@media(min-width:860px){
+  .intro .wrap{ grid-template-columns:1.1fr 1fr; gap:clamp(40px,7vw,110px); align-items:start; }
+}
+
+/* ===========================================================================
+   6. GALERIE — titre, filtres, masonry
+   =========================================================================== */
+.gallery-sec{ padding:0 0 clamp(80px,12vh,140px); }
+.sec-head{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
+  gap:24px; padding-bottom:30px; }
+.sec-head h2{ font-size:clamp(38px,6vw,76px); }
+.sec-head .num{ font-family:var(--sans); font-size:13px; letter-spacing:.2em; color:var(--muted); }
+
+.filters{ display:flex; flex-wrap:wrap; gap:10px; padding:26px 0 36px; }
+.filters button{
+  font-family:var(--sans); font-size:13px; letter-spacing:.05em; cursor:pointer;
+  background:none; border:1px solid var(--line); color:var(--muted);
+  padding:9px 18px; border-radius:999px; transition:all .25s ease;
+}
+.filters button:hover{ color:var(--ink); border-color:var(--ink); }
+.filters button.active{ color:#fff; background:var(--ink); border-color:var(--ink); }
+
+/* Masonry simple et robuste : colonnes CSS */
+.masonry{ column-count:3; column-gap:clamp(14px,1.6vw,26px); }
+@media(max-width:980px){ .masonry{ column-count:2; } }
+@media(max-width:560px){ .masonry{ column-count:1; } }
+.item{ break-inside:avoid; margin-bottom:clamp(14px,1.6vw,26px); cursor:pointer;
+  position:relative; overflow:hidden; background:#ece8e1;
+  /* état initial pour l'animation d'apparition */
+  opacity:0; transform:translateY(22px); transition:opacity .8s ease, transform .8s ease; }
+.item.in{ opacity:1; transform:none; }
+.item img{ transition:transform .9s cubic-bezier(.2,.8,.2,1), filter .5s ease; }
+.item:hover img{ transform:scale(1.05); }
+.item__cap{ position:absolute; left:0; right:0; bottom:0; padding:42px 16px 14px;
+  background:linear-gradient(to top, rgba(0,0,0,.62), transparent);
+  color:#fff; opacity:0; transform:translateY(8px); transition:all .4s ease; }
+.item:hover .item__cap{ opacity:1; transform:none; }
+.item__cap .place{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.75); }
+.item__cap .ttl{ font-family:var(--serif); font-size:20px; line-height:1.15; }
+.empty-msg{ color:var(--muted); padding:40px 0; font-style:italic; }
+
+/* ===========================================================================
+   7. SECTION À PROPOS
+   =========================================================================== */
+.about{ padding:clamp(90px,14vh,160px) 0; background:color-mix(in srgb, var(--ink) 4%, var(--paper)); }
+.about .wrap{ display:grid; grid-template-columns:1fr; gap:46px; align-items:center; }
+@media(min-width:860px){ .about .wrap{ grid-template-columns:.9fr 1.1fr; gap:clamp(46px,7vw,100px); } }
+.about__portrait{ position:relative; }
+.about__portrait img{ aspect-ratio:4/5; object-fit:cover; background:#ece8e1; }
+.about__portrait .tag{ position:absolute; bottom:-14px; left:-14px; background:var(--paper);
+  padding:12px 18px; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+  box-shadow:0 10px 30px rgba(0,0,0,.08); }
+.about h2{ font-size:clamp(34px,5vw,62px); margin:.25em 0 .55em; }
+.about p{ max-width:58ch; color:#4a463f; margin-bottom:18px; }
+.about__meta{ display:flex; flex-wrap:wrap; gap:36px; margin-top:34px; padding-top:30px; border-top:1px solid var(--line); }
+.about__meta div .k{ font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.about__meta div .v{ font-family:var(--serif); font-size:26px; }
+
+/* ===========================================================================
+   8. SECTION CONTACT
+   =========================================================================== */
+.contact{ padding:clamp(90px,15vh,180px) 0; text-align:center; }
+.contact .kicker{ display:block; margin-bottom:22px; }
+.contact h2{ font-size:clamp(40px,8vw,108px); line-height:1; }
+.contact .mailto{ display:inline-block; font-family:var(--serif); font-size:clamp(22px,3.4vw,38px);
+  margin:30px 0 6px; border-bottom:1px solid var(--line); padding-bottom:6px; transition:border-color .3s; }
+.contact .mailto:hover{ border-color:var(--accent); color:var(--accent); }
+.socials{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:42px; }
+.socials a{ display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line);
+  padding:13px 22px; border-radius:999px; font-size:14px; letter-spacing:.03em; transition:all .25s ease; }
+.socials a:hover{ border-color:var(--ink); transform:translateY(-2px); }
+.socials a .at{ color:var(--muted); }
+
+/* Formulaire simple (optionnel) */
+.cform{ max-width:560px; margin:56px auto 0; text-align:left; display:grid; gap:16px; }
+.cform .row{ display:grid; gap:16px; grid-template-columns:1fr 1fr; }
+@media(max-width:560px){ .cform .row{ grid-template-columns:1fr; } }
+.cform input,.cform textarea{ font-family:var(--sans); font-size:15px; color:var(--ink);
+  background:transparent; border:0; border-bottom:1px solid var(--line); padding:12px 2px; }
+.cform input:focus,.cform textarea:focus{ outline:0; border-color:var(--ink); }
+.cform textarea{ resize:vertical; min-height:90px; }
+.cform button{ justify-self:start; font-family:var(--sans); font-size:13px; letter-spacing:.12em;
+  text-transform:uppercase; background:var(--ink); color:#fff; border:0; padding:15px 34px;
+  border-radius:999px; cursor:pointer; transition:background .25s, transform .25s; }
+.cform button:hover{ background:var(--accent); transform:translateY(-2px); }
+.cform .note{ font-size:13px; color:var(--muted); }
+
+/* ===========================================================================
+   9. PIED DE PAGE
+   =========================================================================== */
+footer{ border-top:1px solid var(--line); padding:40px var(--gut);
+  display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center;
+  font-size:13px; color:var(--muted); }
+footer .brand-sm{ font-family:var(--serif); font-size:18px; color:var(--ink); }
+
+/* ===========================================================================
+   10. LIGHTBOX (image seule, fond noir, nav ←/→)
+   =========================================================================== */
+.lb{ position:fixed; inset:0; z-index:100; background:#000;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .35s ease; }
+.lb.open{ opacity:1; pointer-events:auto; }
+.lb__img{ max-width:90vw; max-height:86vh; object-fit:contain; width:auto;
+  box-shadow:0 30px 80px rgba(0,0,0,.6); transition:opacity .25s ease; }
+.lb__close{ position:absolute; top:22px; right:26px; background:none; border:0; cursor:pointer;
+  color:rgba(255,255,255,.8); font-size:30px; line-height:1; width:44px; height:44px; }
+.lb__close:hover{ color:#fff; }
+.lb__nav{ position:absolute; top:50%; transform:translateY(-50%); background:none; border:0;
+  color:rgba(255,255,255,.7); cursor:pointer; width:64px; height:64px; font-size:30px;
+  display:flex; align-items:center; justify-content:center; transition:color .2s; }
+.lb__nav:hover{ color:#fff; }
+.lb__nav.prev{ left:8px; } .lb__nav.next{ right:8px; }
+.lb__count{ position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+  color:rgba(255,255,255,.65); font-size:12px; letter-spacing:.2em; }
+@media(max-width:560px){ .lb__nav{ width:48px; font-size:24px; } }
+
+/* ===========================================================================
+   11. RESPONSIVE — menu mobile
+   =========================================================================== */
+@media(max-width:720px){
+  nav.links{ position:fixed; inset:0; flex-direction:column; justify-content:center; gap:30px;
+    background:var(--paper); transform:translateX(100%); transition:transform .4s ease; z-index:60; }
+  nav.links.show{ transform:none; }
+  nav.links a{ font-size:24px; font-family:var(--serif); }
+  .menu-btn{ display:block; z-index:61; }
+}
+
+/* Respecte les préférences « réduire les animations » */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+  .item{ opacity:1 !important; transform:none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====================== EN-TÊTE / NAVIGATION ============================ -->
+<header class="nav" id="topnav">
+  <a href="#top" class="brand">Quentin Tran<small>Street &amp; Travel</small></a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">Menu</button>
+  <nav class="links" id="navLinks">
+    <a href="#galerie">Galerie</a>
+    <a href="#apropos">À propos</a>
+    <a href="#contact">Contact</a>
+    <a href="https://instagram.com/qtn.ys" target="_blank" rel="noopener" class="accent">Instagram ↗</a>
+  </nav>
+</header>
+
+<!-- ============================== HERO =================================== -->
+<section class="hero" id="top">
+  <div class="hero__media">
+    <!-- ★ PHOTO DU HERO : remplacez l'adresse ci-dessous par votre plus belle image (paysage, format large).
+         Ex : src="images/hero.jpg" -->
+    <img src="images/hero.svg" alt="Photographie d'accroche de Quentin Tran" />
+  </div>
+  <div class="hero__inner">
+    <p class="kicker">Photographe — Street &amp; Voyage</p>
+    <h1>Quentin&nbsp;Tran</h1>
+    <div class="hero__sub">
+      <span>Street &amp; travel photography</span>
+      <span class="dot"></span>
+      <span>Indonésie · Turquie · Japon · Chine</span>
+    </div>
+  </div>
+  <div class="scrollcue"><span>Défiler</span><span class="bar"></span></div>
+</section>
+
+<!-- ============================ INTRO / MANIFESTE ======================== -->
+<section class="intro reveal">
+  <div class="wrap">
+    <p class="intro__lead">Capturer l'instant juste, là où la rue et le voyage se rencontrent.</p>
+    <div class="intro__body">
+      <!-- ★ Texte d'introduction — remplacez par vos mots. -->
+      <p>Je photographe ce qui se passe entre deux moments : un regard, une lumière qui tombe au coin d'une ruelle, le rythme d'une ville inconnue. De Yogyakarta à Istanbul, de Tokyo à Shanghai, je cherche la même chose — une émotion vraie, sans mise en scène.</p>
+      <p style="margin-top:18px;">Ce site rassemble une sélection de mes séries, organisées par destination. Prenez le temps, laissez les images respirer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== GALERIE ================================ -->
+<section class="gallery-sec" id="galerie">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Galerie</h2>
+      <span class="num">— Sélection 2023–2026</span>
+    </div>
+    <hr class="rule" />
+    <!-- Filtres par collection. Les noms doivent correspondre aux "collection" des photos plus bas. -->
+    <div class="filters reveal" id="filters">
+      <button class="active" data-filter="all">Tout</button>
+      <button data-filter="street">Street</button>
+      <button data-filter="indonesie">Indonésie</button>
+      <button data-filter="turquie">Turquie</button>
+      <button data-filter="japon">Japon</button>
+      <button data-filter="chine">Chine</button>
+    </div>
+    <!-- La mosaïque est générée automatiquement à partir de la LISTE DE VOS PHOTOS (dans le script). -->
+    <div class="masonry" id="masonry"></div>
+  </div>
+</section>
+
+<!-- ============================= À PROPOS ================================ -->
+<section class="about" id="apropos">
+  <div class="wrap">
+    <div class="about__portrait reveal">
+      <!-- ★ VOTRE PORTRAIT : remplacez par une photo de vous. Format portrait conseillé (4/5). -->
+      <img src="images/portrait.svg" alt="Portrait de Quentin Tran" />
+      <span class="tag">Quentin, en repérage</span>
+    </div>
+    <div class="reveal">
+      <p class="kicker accent">À propos</p>
+      <h2>Le voyage comme regard.</h2>
+      <!-- ★ SECTION À PROPOS : votre histoire. Remplacez ce texte d'exemple par le vôtre. -->
+      <p>Photographe amateur passionné, j'ai commencé par documenter ma propre ville avant de réaliser que l'appareil était surtout une excuse pour mieux regarder. Aujourd'hui, je voyage avec un seul objectif et beaucoup de patience.</p>
+      <p>La street photography m'a appris l'anticipation ; le voyage m'a appris l'humilité. Mes images cherchent l'équilibre entre les deux : composées mais vivantes, calmes mais habitées.</p>
+      <p>Ce portfolio est une invitation. Si une série vous parle, écrivez-moi — j'adore parler photo, lumière et destinations.</p>
+      <div class="about__meta">
+        <div><div class="k">Basé à</div><div class="v">Paris, FR</div></div>
+        <div><div class="k">Pays parcourus</div><div class="v">4+</div></div>
+        <div><div class="k">Depuis</div><div class="v">2019</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT ================================ -->
+<section class="contact" id="contact">
+  <div class="wrap reveal">
+    <span class="kicker accent">Prenons contact</span>
+    <h2>Travaillons<br />ensemble.</h2>
+    <!-- ★ SECTION CONTACT : remplacez l'email ci-dessous par le vôtre. -->
+    <a class="mailto" href="mailto:bonjour@quentintran.com">bonjour@quentintran.com</a>
+
+    <div class="socials">
+      <!-- ★ Réseaux — vos pseudos sont déjà renseignés. -->
+      <a href="https://instagram.com/qtn.ys" target="_blank" rel="noopener">Instagram <span class="at">@qtn.ys</span></a>
+      <a href="https://tiktok.com/@qtcmoi" target="_blank" rel="noopener">TikTok <span class="at">@qtcmoi</span></a>
+    </div>
+
+    <!-- Formulaire de démonstration (n'envoie pas d'email tel quel — voir note en bas du script). -->
+    <form class="cform" id="cform">
+      <div class="row">
+        <input type="text" name="nom" placeholder="Votre nom" required />
+        <input type="email" name="email" placeholder="Votre email" required />
+      </div>
+      <textarea name="message" placeholder="Votre message" required></textarea>
+      <button type="submit">Envoyer</button>
+      <p class="note" id="formNote">Réponse sous 48 h. Pour les projets, précisez la destination ou la date.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <span class="brand-sm">Quentin Tran</span>
+  <span>© <span id="year"></span> — Street &amp; travel photography. Tous droits réservés.</span>
+  <a href="#top">Haut de page ↑</a>
+</footer>
+
+<!-- ============================== LIGHTBOX =============================== -->
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="lb__close" id="lbClose" aria-label="Fermer">×</button>
+  <button class="lb__nav prev" id="lbPrev" aria-label="Précédent">‹</button>
+  <img class="lb__img" id="lbImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
+  <button class="lb__nav next" id="lbNext" aria-label="Suivant">›</button>
+  <div class="lb__count" id="lbCount"></div>
+</div>
+
+<script>
+/* ===========================================================================
+   ★★★ LISTE DE VOS PHOTOS ★★★
+   ---------------------------------------------------------------------------
+   C'est ICI que vous gérez toute la galerie. Chaque photo est une ligne.
+   Pour chacune :
+     • src        = adresse de l'image (mettez "ma-photo.jpg" pour vos fichiers)
+     • collection = "street", "indonesie", "turquie", "japon" ou "chine"
+     • lieu       = petit texte affiché au survol (ex : "Istanbul, Turquie")
+     • titre      = titre court de la photo
+   Ajoutez ou supprimez des lignes librement : la mosaïque s'adapte toute seule.
+   =========================================================================== */
+const PHOTOS = [
+  { src:"images/qt-jp1.svg", collection:"japon",     lieu:"Tokyo, Japon",          titre:"Néons de Shinjuku" },
+  { src:"images/qt-st1.svg", collection:"street",    lieu:"Paris, France",         titre:"Passage pressé" },
+  { src:"images/qt-id1.svg", collection:"indonesie", lieu:"Yogyakarta, Indonésie", titre:"Aube sur Borobudur" },
+  { src:"images/qt-tr1.svg", collection:"turquie",   lieu:"Istanbul, Turquie",     titre:"Vapeur du Bosphore" },
+  { src:"images/qt-cn1.svg", collection:"chine",     lieu:"Shanghai, Chine",       titre:"Verticales du Bund" },
+  { src:"images/qt-st2.svg", collection:"street",    lieu:"Lisbonne, Portugal",    titre:"Ombre et tram" },
+  { src:"images/qt-jp2.svg", collection:"japon",     lieu:"Kyoto, Japon",          titre:"Allée de torii" },
+  { src:"images/qt-id2.svg", collection:"indonesie", lieu:"Bali, Indonésie",       titre:"Rizières en terrasses" },
+  { src:"images/qt-tr2.svg", collection:"turquie",   lieu:"Cappadoce, Turquie",    titre:"Montgolfières à l'aube" },
+  { src:"images/qt-cn2.svg", collection:"chine",     lieu:"Pékin, Chine",          titre:"Cour grise" },
+  { src:"images/qt-st3.svg", collection:"street",    lieu:"New York, USA",         titre:"Reflets d'avenue" },
+  { src:"images/qt-jp3.svg", collection:"japon",     lieu:"Osaka, Japon",          titre:"Dotonbori la nuit" },
+  { src:"images/qt-id3.svg", collection:"indonesie", lieu:"Java, Indonésie",       titre:"Cratère de soufre" },
+  { src:"images/qt-tr3.svg", collection:"turquie",   lieu:"Istanbul, Turquie",     titre:"Marché aux épices" },
+  { src:"images/qt-cn3.svg", collection:"chine",     lieu:"Chongqing, Chine",      titre:"Ville superposée" },
+  { src:"images/qt-st4.svg", collection:"street",    lieu:"Marseille, France",     titre:"Bord de quai" },
+  { src:"images/qt-jp4.svg", collection:"japon",     lieu:"Tokyo, Japon",          titre:"Carrefour de Shibuya" },
+  { src:"images/qt-tr4.svg", collection:"turquie",   lieu:"Antalya, Turquie",      titre:"Falaises et mer" },
+];
+
+/* ---- Génération de la mosaïque ---------------------------------------- */
+const masonry = document.getElementById('masonry');
+let currentList = [];   // photos actuellement affichées (pour la lightbox)
+
+function renderGallery(filter){
+  currentList = PHOTOS.filter(p => filter === 'all' || p.collection === filter);
+  masonry.innerHTML = '';
+  if(currentList.length === 0){
+    masonry.innerHTML = '<p class="empty-msg">Aucune photo dans cette collection pour le moment.</p>';
+    return;
+  }
+  currentList.forEach((p, i) => {
+    const fig = document.createElement('figure');
+    fig.className = 'item';
+    fig.dataset.index = i;
+    fig.innerHTML =
+      '<img loading="lazy" src="'+p.src+'" alt="'+p.titre+' — '+p.lieu+'" />' +
+      '<figcaption class="item__cap"><div class="place">'+p.lieu+'</div>' +
+      '<div class="ttl">'+p.titre+'</div></figcaption>';
+    fig.addEventListener('click', () => openLightbox(i));
+    masonry.appendChild(fig);
+  });
+  observeItems();   // (ré)active l'animation d'apparition
+}
+
+/* ---- Filtres ----------------------------------------------------------- */
+document.querySelectorAll('#filters button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#filters button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGallery(btn.dataset.filter);
+  });
+});
+
+/* ===========================================================================
+   LIGHTBOX — image seule, fond noir, navigation ←/→
+   =========================================================================== */
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lbImg');
+const lbCount = document.getElementById('lbCount');
+let lbIndex = 0;
+
+function openLightbox(i){
+  lbIndex = i;
+  showLb();
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function showLb(){
+  const p = currentList[lbIndex];
+  lbImg.style.opacity = 0;
+  const tmp = new Image();
+  tmp.onload = () => { lbImg.src = p.src; lbImg.alt = p.titre+' — '+p.lieu; lbImg.style.opacity = 1; };
+  tmp.src = p.src;
+  lbCount.textContent = (lbIndex+1) + ' / ' + currentList.length;
+}
+function closeLightbox(){
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+function nextLb(){ lbIndex = (lbIndex + 1) % currentList.length; showLb(); }
+function prevLb(){ lbIndex = (lbIndex - 1 + currentList.length) % currentList.length; showLb(); }
+
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbNext').addEventListener('click', nextLb);
+document.getElementById('lbPrev').addEventListener('click', prevLb);
+lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowRight') nextLb();
+  if(e.key === 'ArrowLeft') prevLb();
+});
+
+/* ===========================================================================
+   ANIMATIONS D'APPARITION AU DÉFILEMENT (discrètes)
+   =========================================================================== */
+let io;
+function observeItems(){
+  const els = document.querySelectorAll('.item:not(.in)');
+  els.forEach(el => io.observe(el));
+}
+io = new IntersectionObserver((entries) => {
+  entries.forEach((e, idx) => {
+    if(e.isIntersecting){
+      // petit décalage en cascade pour un rendu premium
+      const order = [...e.target.parentNode.children].indexOf(e.target);
+      e.target.style.transitionDelay = ((order % 3) * 80) + 'ms';
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+
+// Mêmes apparitions pour les blocs de texte marqués ".reveal"
+const ioReveal = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.transition = 'opacity .9s ease, transform .9s ease';
+      e.target.style.opacity = 1; e.target.style.transform = 'none';
+      ioReveal.unobserve(e.target);
+    }
+  });
+}, { threshold:0.15 });
+document.querySelectorAll('.reveal').forEach(el => {
+  el.style.opacity = 0; el.style.transform = 'translateY(24px)';
+  ioReveal.observe(el);
+});
+
+/* ===========================================================================
+   EN-TÊTE qui se condense au défilement + menu mobile
+   =========================================================================== */
+const topnav = document.getElementById('topnav');
+window.addEventListener('scroll', () => {
+  topnav.classList.toggle('scrolled', window.scrollY > 40);
+});
+const navLinks = document.getElementById('navLinks');
+document.getElementById('menuBtn').addEventListener('click', () => navLinks.classList.toggle('show'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('show')));
+
+/* ===========================================================================
+   FORMULAIRE — démo (ne part pas par email tel quel)
+   Pour recevoir vraiment les messages : créez un compte gratuit sur Formspree
+   (ou Getform), puis remplacez la ligne ci-dessous par l'action de votre formulaire.
+   =========================================================================== */
+document.getElementById('cform').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('formNote').textContent =
+    'Merci ! (Démo) Pour activer l\'envoi réel, voir le commentaire « FORMULAIRE » dans le code.';
+  document.getElementById('formNote').style.color = 'var(--accent)';
+});
+
+/* ---- Initialisation ---------------------------------------------------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+renderGallery('all');
+</script>
+</body>
+</html>
