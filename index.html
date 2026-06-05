@@ -319,8 +319,8 @@ footer .brand-sm{ font-family:var(--serif); font-size:18px; color:var(--ink); }
     <p class="intro__lead">Capturer l'instant juste, là où la rue et le voyage se rencontrent.</p>
     <div class="intro__body">
       <!-- ★ Texte d'introduction — remplacez par vos mots. -->
-      <p>Je photographe ce qui se passe entre deux moments : un regard, une lumière qui tombe au coin d'une ruelle, le rythme d'une ville inconnue. De Yogyakarta à Istanbul, de Tokyo à Bali, je cherche la même chose — une émotion vraie, sans mise en scène.</p>
-      <p style="margin-top:18px;">Ce site rassemble une sélection de mes séries, organisées par destination. Prenez le temps, laissez les images respirer.</p>
+      <p>Je photographie ce qui se passe entre deux moments : un regard, une lumière qui tombe au coin d'une ruelle, le rythme d'une ville inconnue. Des Houches à Bali, d'Istanbul au Japon, je cherche la même chose — une émotion vraie, sans mise en scène.</p>
+      <p style="margin-top:18px;">Ce site rassemble une sélection de mes séries, organisées par destination. Prends le temps, laisse les images respirer.</p>
     </div>
   </div>
 </section>
@@ -357,13 +357,13 @@ footer .brand-sm{ font-family:var(--serif); font-size:18px; color:var(--ink); }
       <p class="kicker accent">À propos</p>
       <h2>Le voyage comme regard.</h2>
       <!-- ★ SECTION À PROPOS : votre histoire. Remplacez ce texte d'exemple par le vôtre. -->
-      <p>Photographe amateur passionné, j'ai commencé par documenter ma propre ville avant de réaliser que l'appareil était surtout une excuse pour mieux regarder. Aujourd'hui, je voyage avec un seul objectif et beaucoup de patience.</p>
-      <p>La street photography m'a appris l'anticipation ; le voyage m'a appris l'humilité. Mes images cherchent l'équilibre entre les deux : composées mais vivantes, calmes mais habitées.</p>
-      <p>Ce portfolio est une invitation. Si une série vous parle, écrivez-moi — j'adore parler photo, lumière et destinations.</p>
+      <p>J'ai commencé comme presque tout le monde : au téléphone, des cadrages approximatifs, mais déjà une obsession, garder une trace de l'instant. Ma famille, mes amis, un paysage qui m'arrête. Le déclic est venu en février 2025, à mon premier voyage au Japon : je me suis mis à photographier chaque jour, dès qu'une scène m'attrapait. En avril, j'achetais mon premier vrai boîtier, un Sony A6400. Je shoote dessus depuis, et je n'ai pas lâché.</p>
+      <p>Je suis autodidacte, de la prise de vue à la retouche. Je photographie surtout en voyage, moins au quotidien : j'ai besoin de vivre l'instant autant que de le capturer. Ce que je cherche, c'est un feeling, une scène qui dégage quelque chose quand je la revois.</p>
+      <p>Depuis que j'ai cet appareil, il m'a suivi des Aiguillettes des Houches à Bali, d'Istanbul à Amsterdam, du Japon à la Chine. Voyager m'ouvre l'esprit et le cœur : d'autres cultures, d'autres visages, d'autres sourires, d'autres façons de vivre, loin de ma zone de confort. C'est ça que j'essaie de ramener dans mes images. Si, en parcourant ce site, tu ressens quelque chose, même fugace, alors elles ont fait leur travail. Et si une série te parle, écris-moi.</p>
       <div class="about__meta">
         <div><div class="k">Basé à</div><div class="v">Région parisienne</div></div>
-        <div><div class="k">Pays parcourus</div><div class="v">4+</div></div>
-        <div><div class="k">Depuis</div><div class="v">2019</div></div>
+        <div><div class="k">Boîtier</div><div class="v">Sony A6400</div></div>
+        <div><div class="k">Depuis</div><div class="v">2025</div></div>
       </div>
     </div>
   </div>
@@ -397,7 +397,7 @@ footer .brand-sm{ font-family:var(--serif); font-size:18px; color:var(--ink); }
       </div>
       <textarea name="message" placeholder="Votre message" required></textarea>
       <button type="submit">Envoyer</button>
-      <p class="note" id="formNote">Réponse sous 48 h. Pour les projets, précisez la destination ou la date.</p>
+      <p class="note" id="formNote">Réponse sous 48 h. Pour un projet, précise la destination ou la date.</p>
     </form>
   </div>
 </section>
@@ -593,12 +593,12 @@ cform.addEventListener('submit', e => {
   fetch('/', { method:'POST', headers:{ 'Content-Type':'application/x-www-form-urlencoded' }, body:data })
     .then(r => {
       if(!r.ok) throw new Error('network');
-      formNote.textContent = 'Merci, votre message a bien été envoyé. Je vous réponds sous 48 h.';
+      formNote.textContent = 'Merci, ton message a bien été envoyé. Je te réponds sous 48 h.';
       formNote.style.color = 'var(--accent)';
       cform.reset();
     })
     .catch(() => {
-      formNote.textContent = "L'envoi a échoué. Réessayez, ou écrivez-moi directement par email.";
+      formNote.textContent = "L'envoi a échoué. Réessaie, ou écris-moi directement par email.";
       formNote.style.color = 'var(--accent)';
     });
 });
